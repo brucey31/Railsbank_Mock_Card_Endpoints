@@ -1,0 +1,10 @@
+{
+    "staging": {
+        "app_function": "flask_app.RailsbankCardStubs.app",
+        "aws_region": "eu-west-2",
+        "profile_name": "default",
+        "project_name": "zappa-test",
+        "runtime": "python3.7",
+        "s3_bucket": "{Your S3 Bucket}"
+    }
+}

@@ -1,0 +1,6 @@
+{
+  "card_token": {
+    "required": true,
+    "data_type": "str"
+  }
+}

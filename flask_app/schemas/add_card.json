@@ -1,0 +1,79 @@
+{
+	"card_carrier_type": {
+		"required": false,
+		"data_type": "enum",
+		"options": ["renewal", "replacement", "standard"]
+	},
+	"card_delivery_address": {
+		"required": false,
+		"data_type": "dict"
+	},
+	"card_delivery_address--address_city": {
+		"required": false,
+		"data_type": "str"
+	},
+	"card_delivery_address--address_iso_country": {
+		"required": false,
+		"data_type": "str"
+	},
+	"card_delivery_address--address_number": {
+		"required": false,
+		"data_type": "str"
+	},
+	"card_delivery_address--address_postal_code": {
+		"required": false,
+		"data_type": "str"
+	},
+	"card_delivery_address--address_refinement": {
+		"required": false,
+		"data_type": "str"
+	},
+	"card_delivery_address--address_region": {
+		"required": false,
+		"data_type": "str"
+	},
+	"card_delivery_address--address_street": {
+		"required": false,
+		"data_type": "str"
+	},
+	"card_delivery_method": {
+		"required": false,
+		"data_type": "enum",
+		"options": ["standard-first-class", "international-mail", "dhl"]
+	},
+	"card_delivery_name": {
+		"required": false,
+		"data_type": "str"
+	},
+	"card_design": {
+		"required": true,
+		"data_type": "enum",
+		"options": ["1"]
+	},
+	"card_programme": {
+		"required": true,
+		"data_type": "enum",
+		"options": ["Storkcard-GBP-Retail"]
+	},
+	"card_rules": {
+		"required": false,
+		"data_type": "list"
+	},
+	"card_type": {
+		"required": false,
+		"data_type": "enum",
+		"options": ["virtual", "physical"]
+	},
+	"ledger_id": {
+		"required": true,
+		"data_type": "str"
+	},
+	"name_on_card": {
+		"required": false,
+		"data_type": "str"
+	},
+	"qr_code_content": {
+		"required": false,
+		"data_type": "str"
+	}
+}

@@ -1,0 +1,6 @@
+{
+  "card_id": {
+    "required": true,
+    "data_type": "str"
+  }
+}
