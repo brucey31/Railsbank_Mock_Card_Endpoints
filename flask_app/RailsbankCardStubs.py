@@ -114,31 +114,6 @@ def updateJsonFile(card_id, updates):
     create_card_file(card_id, card_details)
 
 
-def sendAsyncCall(url, headers={}, message={}, method="POST", ):
-    """
-    Sends message to Lambda_Async_Call_Maker Lambda to wait to send call
-
-    :param message:
-    :return: None
-    """
-    client = boto3.client('lambda')
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
-
-    message["secret"] = staging_webhook_secret
-
-    payload = json.dumps({"method": method,
-                          "url": url,
-                          "timeout": async_timeout,
-                          "api_payload": json.dumps(message),
-                          "api_headers": headers})
-
-    client.invoke(
-        FunctionName="Lambda_Async_Call_Maker",
-        InvocationType='Event',
-        Payload=payload
-    )
-
 
 @app.route('/', methods=['GET'])
 def health_check():
@@ -167,16 +142,6 @@ def issue_card():
         data["card_token"] = card_token
 
         create_card_file(card_id, data)
-
-        message = {
-            "card_id": card_id,
-            "ledger_id": request.get_json().get("ledger_id"),
-            "owner": owner_id,
-            "type": "card-awaiting-activation",
-            "created_at": datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S.000Z")
-        }
-
-        sendAsyncCall("https://transactions-staging.storkcard.com/", message=message)
 
     return create_response(success, errors, jsonify(card_id=card_id))
 
@@ -258,14 +223,6 @@ def activate_card(card_id):
     if success:
         updateJsonFile(card_id, {"card_status": "card-status-active"})
 
-    message = {
-        "card_id": card_id,
-        "owner": owner_id,
-        "type": "card-activated",
-        "created_at": datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S.000Z")
-    }
-
-    sendAsyncCall("https://transactions-staging.storkcard.com/", message=message)
 
     return create_response(success, errors, jsonify(card_id=card_id))
 
@@ -283,15 +240,6 @@ def suspend_card(card_id):
 
     if success:
         updateJsonFile(card_id, {"card_status": "card-status-suspended"})
-
-        message = {
-            "card_id": card_id,
-            "owner": owner_id,
-            "type": "card-suspended",
-            "created_at": datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S.000Z")
-        }
-
-        sendAsyncCall("https://transactions-staging.storkcard.com/", message=message)
 
     return create_response(success, errors, jsonify(card_id=card_id))
 
